@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="req_string">Req String</string>
+    <string name="req_json">Req Json</string>
+    <string name="req_image">Req Image</string>
+    <string name="req_post">Req Post</string>
 </resources>
