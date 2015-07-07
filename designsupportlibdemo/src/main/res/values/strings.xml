@@ -6,4 +6,12 @@
 
     <string name="drawer_open">open drawer</string>
     <string name="drawer_close">close drawer</string>
+
+    <string name="article_title">Codelab for Android Design Support Library used in I/O Rewind Bangkok session\nMake your app fancy with few lines of code</string>
+
+    <string name="article_content">At the moment I believe that there is no any Android Developer who does not know about Material Design anymore since it officially becomes a design philosophy by shaking the world of design in passed year.
+
+Surprisingly that it was not easy to implement Material Design in android application because those Material Design\'s UI Component like Floating Action Button (FAB) was not available in Android pre-Lollipop. Only choice we had was to use 3rd party library published by indie android developer out there.
+
+Here comes a good news. Last week during Google I/O 2015 event, Google announced the most excited support library within year named Android Design Support Library providing a bunch of useful Material Design UI Components in a single library. Let me use this chance to describe to you one by one how to use each of them through this article.</string>
 </resources>
