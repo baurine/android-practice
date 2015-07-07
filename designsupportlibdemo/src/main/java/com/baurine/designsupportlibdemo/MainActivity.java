@@ -13,6 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+/*
+参考资料：
+http://inthecheesefactory.com/blog/android-design-support-library-codelab/en
+http://blog.csdn.net/eclipsexys/article/details/46349721
+https://medium.com/ribot-labs/exploring-the-new-android-design-support-library-b7cda56d2c32
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
