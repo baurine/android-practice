@@ -1,6 +1,7 @@
 package com.baurine.designsupportlibdemo;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewGroup mLayoutContentRoot;
     private FloatingActionButton mFabBtn;
     private Toolbar mToolbar;
-//    private TabLayout mTabLayout;
+    //    private TabLayout mTabLayout;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setupDrawerLayout();
 //        setupTabLayout();
+        setupCollapsingToolbarLayout();
+    }
+
+    private void setupCollapsingToolbarLayout() {
+        mCollapsingToolbarLayout.setTitle("Design Library");
     }
 
     private void findViews() {
@@ -45,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         mFabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //        mTabLayout = (TabLayout) findViewById(R.id.tablayout);
+        mCollapsingToolbarLayout =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
     }
 
     private void setupFabBtn() {
