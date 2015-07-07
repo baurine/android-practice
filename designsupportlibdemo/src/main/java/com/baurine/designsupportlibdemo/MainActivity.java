@@ -2,8 +2,11 @@ package com.baurine.designsupportlibdemo;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,8 +14,10 @@ import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity {
 
+    DrawerLayout mDrawerLayout;
     ViewGroup mLayoutContentRoot;
     FloatingActionButton mFabBtn;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
         findViews();
         setupFabBtn();
+        setupToolbar();
+        setupDrawerLayout();
     }
 
     private void findViews() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mLayoutContentRoot = (ViewGroup) findViewById(R.id.layout_content_root);
         mFabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
     private void setupFabBtn() {
@@ -44,21 +53,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setupToolbar() {
+        mToolbar.setTitle("Toolbar");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setupDrawerLayout() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,
+                mDrawerLayout,
+                mToolbar,
+                R.string.drawer_open,
+                R.string.drawer_close
+        );
+        toggle.syncState();
+        mDrawerLayout.setDrawerListener(toggle);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
