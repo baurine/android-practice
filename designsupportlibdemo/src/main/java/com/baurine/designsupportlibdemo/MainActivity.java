@@ -1,16 +1,47 @@
 package com.baurine.designsupportlibdemo;
 
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity {
+
+    ViewGroup mFlRoot;
+    FloatingActionButton mFabBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViews();
+        setupFabBtn();
+    }
+
+    private void findViews() {
+        mFlRoot = (ViewGroup) findViewById(R.id.fl_root);
+        mFabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
+    }
+
+    private void setupFabBtn() {
+        mFabBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(mFlRoot, "Hello, I'm Snackbar!", Snackbar.LENGTH_LONG)
+                        .setAction("UNDO", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 
     @Override
