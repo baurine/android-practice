@@ -1,1 +1,1 @@
-include ':volley', ':volleydemo', ':marsweather'
+include ':volley', ':volleydemo', ':marsweather', ':toolbardrawerlayoutdemo'
