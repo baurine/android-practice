@@ -3,6 +3,7 @@ package com.baurine.designsupportlibdemo;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,6 +24,7 @@ https://medium.com/ribot-labs/exploring-the-new-android-design-support-library-b
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
     private ViewGroup mLayoutContentRoot;
     private FloatingActionButton mFabBtn;
     private Toolbar mToolbar;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setupFabBtn();
         setupToolbar();
         setupDrawerLayout();
+        setupNavigationView();
 //        setupTabLayout();
         setupCollapsingToolbarLayout();
     }
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mLayoutContentRoot = (ViewGroup) findViewById(R.id.layout_content_root);
         mFabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -89,6 +93,28 @@ public class MainActivity extends AppCompatActivity {
         );
         toggle.syncState();
         mDrawerLayout.setDrawerListener(toggle);
+    }
+
+    private void setupNavigationView() {
+        mNavigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.nav_dashboard:
+                                break;
+                            case R.id.nav_event:
+                                break;
+                            case R.id.nav_forum:
+                                break;
+                            case R.id.nav_headset:
+                                break;
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
     }
 
     /*
