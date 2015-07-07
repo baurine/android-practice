@@ -12,6 +12,10 @@ import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+/*
+教程来源：http://chenqichao.me/2014/12/08/108-Android-Toolbar-DrawerLayout-01/
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.tl_custom)
