@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity {
 
-    ViewGroup mFlRoot;
+    ViewGroup mLayoutContentRoot;
     FloatingActionButton mFabBtn;
 
     @Override
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        mFlRoot = (ViewGroup) findViewById(R.id.fl_root);
+        mLayoutContentRoot = (ViewGroup) findViewById(R.id.layout_content_root);
         mFabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
     }
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mFabBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(mFlRoot, "Hello, I'm Snackbar!", Snackbar.LENGTH_LONG)
+                Snackbar.make(mLayoutContentRoot, "Hello, I'm Snackbar!", Snackbar.LENGTH_LONG)
                         .setAction("UNDO", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

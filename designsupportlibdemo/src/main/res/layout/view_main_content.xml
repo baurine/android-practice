@@ -1,6 +1,6 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fl_root"
+    android:id="@+id/layout_content_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,4 +14,4 @@
         app:borderWidth="0dp"
         app:fabSize="normal" />
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
