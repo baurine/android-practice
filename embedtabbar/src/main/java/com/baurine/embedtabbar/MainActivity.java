@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
@@ -63,6 +66,19 @@ public class MainActivity extends AppCompatActivity {
             mActionBar.addTab(mActionBar.newTab()
                     .setText("Tab " + (i + 1))
                     .setTabListener(listener));
+        }
+
+        enableEmbededTabs(mActionBar);
+    }
+
+    private void enableEmbededTabs(Object actionBar) {
+        try {
+            Method setHasEmbeddedTabsMethod = actionBar.getClass()
+                    .getDeclaredMethod("setHasEmbeddedTabs", boolean.class);
+            setHasEmbeddedTabsMethod.setAccessible(true);
+            setHasEmbeddedTabsMethod.invoke(actionBar, true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
