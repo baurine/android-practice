@@ -11,12 +11,17 @@ import android.view.ViewGroup;
  */
 public class MainActivityFragment extends Fragment {
 
+    public static final String ARG_KEY = "arg_key";
+
     public MainActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        Bundle arg = getArguments();
+        rootView.setBackgroundColor(arg.getInt(ARG_KEY));
+        return rootView;
     }
 }

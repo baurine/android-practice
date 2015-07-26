@@ -1,5 +1,6 @@
 package com.baurine.embedtabbar;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -73,7 +74,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new MainActivityFragment();
+            Fragment fragment = new MainActivityFragment();
+            Bundle arg = new Bundle();
+            switch (position) {
+                case 0:
+                    arg.putInt(MainActivityFragment.ARG_KEY, Color.RED);
+                    break;
+                case 1:
+                    arg.putInt(MainActivityFragment.ARG_KEY, Color.YELLOW);
+                    break;
+                case 2:
+                    arg.putInt(MainActivityFragment.ARG_KEY, Color.BLUE);
+                    break;
+            }
+            fragment.setArguments(arg);
+            return fragment;
         }
 
         @Override
