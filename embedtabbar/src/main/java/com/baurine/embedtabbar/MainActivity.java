@@ -1,5 +1,6 @@
 package com.baurine.embedtabbar;
 
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +10,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupActionBar() {
+        // 不显示图标和标题
+        mActionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         ActionBar.TabListener listener = new ActionBar.TabListener() {
@@ -62,9 +67,15 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        TypedArray iconsId = getResources().obtainTypedArray(R.array.action_tab_icons);
         for (int i = 0; i < 3; i++) {
+            View view = getLayoutInflater().inflate(R.layout.action_tab, null);
+            ImageView imgView = (ImageView) view.findViewById(R.id.icon);
+            imgView.setImageResource(iconsId.getResourceId(i, -1));
+
             mActionBar.addTab(mActionBar.newTab()
-                    .setText("Tab " + (i + 1))
+                    // .setText("Tab " + (i + 1))
+                    .setCustomView(view)
                     .setTabListener(listener));
         }
 
