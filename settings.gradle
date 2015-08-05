@@ -1,1 +1,1 @@
-include ':volley', ':volleydemo', ':marsweather', ':toolbardrawerlayoutdemo', ':designsupportlibdemo'
+include ':volley', ':volleydemo', ':marsweather', ':toolbardrawerlayoutdemo', ':designsupportlibdemo', ':embedtabbar'

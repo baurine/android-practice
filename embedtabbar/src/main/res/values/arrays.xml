@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="action_tab_icons">
+        <item>@drawable/actionbar_home</item>
+        <item>@drawable/actionbar_tag</item>
+        <item>@drawable/actionbar_account</item>
+    </string-array>
+</resources>
