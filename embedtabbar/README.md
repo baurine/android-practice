@@ -32,4 +32,4 @@
 
 ![embeddedtabbar](apk/embeddedtabbar.gif)
 
-最后的效果并没有达到和原作者一样，不知道该怎么解决。
+最后的效果并没有达到和原作者一样，tabbar 的左侧和上侧还有一些额外的 padding，尝试了几种修改都未能解决。
