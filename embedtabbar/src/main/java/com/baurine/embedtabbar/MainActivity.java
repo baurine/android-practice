@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupActionBar() {
         // 不显示图标和标题
-        mActionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+        // mActionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
 
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
