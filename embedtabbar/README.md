@@ -33,3 +33,41 @@
 ![embeddedtabbar](apk/embeddedtabbar.gif)
 
 最后的效果并没有达到和原作者一样，tabbar 的左侧和上侧还有一些额外的 padding，尝试了几种修改都未能解决。
+
+#### 2015/8/6
+
+感谢作者 [Archie Yang](https://github.com/archieyang)，经过他的指点，修改 style 如下，达到了和作者一样的效果。  
+增加了 `actionBarSize`, `contentInsetStart`, `contentInsetEnd` 三个属性。
+
+代码：
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="actionBarSize">48dp</item> <!--ADD-->
+        <item name="actionBarStyle">@style/EmbeddedActionBar</item>
+        <item name="actionBarTabStyle">@style/EmbeddedTabStyle</item>
+        <item name="actionBarTabBarStyle">@style/customActionBarTabBarStyle</item>
+    </style>
+
+    <style name="EmbeddedActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="displayOptions">none</item>
+        <item name="background">@color/actionbar_dark_grey</item>
+        <item name="contentInsetStart">0dp</item> <!--ADD-->
+        <item name="contentInsetEnd">0dp</item> <!--ADD-->
+    </style>
+
+    <style name="EmbeddedTabStyle" parent="Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:padding">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/actionbar_tabs_bg</item>
+    </style>
+
+    <style name="customActionBarTabBarStyle" parent="Widget.AppCompat.Light.ActionBar.TabBar">
+        <item name="divider">@null</item>
+    </style>
+
+修改后的截图：
+
+![embeddedtabbar](apk/embeddedtabbar_2.gif)
+
