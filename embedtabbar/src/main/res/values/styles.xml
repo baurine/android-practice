@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="actionBarSize">48dp</item>
         <item name="actionBarStyle">@style/EmbeddedActionBar</item>
         <item name="actionBarTabStyle">@style/EmbeddedTabStyle</item>
         <item name="actionBarTabBarStyle">@style/customActionBarTabBarStyle</item>
@@ -11,6 +12,8 @@
     <style name="EmbeddedActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
         <item name="displayOptions">none</item>
         <item name="background">@color/actionbar_dark_grey</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
     </style>
 
     <style name="EmbeddedTabStyle" parent="Widget.AppCompat.Light.ActionBar.TabView">
