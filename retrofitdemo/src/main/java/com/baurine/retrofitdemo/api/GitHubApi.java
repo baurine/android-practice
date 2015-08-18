@@ -4,7 +4,6 @@ import com.baurine.retrofitdemo.model.GitHubUser;
 
 import retrofit.Callback;
 import retrofit.http.GET;
-import retrofit.http.Headers;
 import retrofit.http.Path;
 
 /**
@@ -13,8 +12,8 @@ import retrofit.http.Path;
 public interface GitHubApi {
 
     // 必须设置 User-Agent，否则返回 403
-    // https://developer.github.com/v3/#user-agent-required
-    @Headers("User-Agent: Retrofit-Sample-App")
+    // see https://developer.github.com/v3/#user-agent-required
+    // @Headers("User-Agent: Retrofit-Sample-App")
     @GET("/users/{user}")
     void getUser(@Path("user") String user, Callback<GitHubUser> response);
 }

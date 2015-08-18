@@ -1,5 +1,6 @@
 package com.baurine.retrofitdemo.api;
 
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 /**
@@ -12,9 +13,19 @@ public class GitHubClient {
 
     public static GitHubApi getApiService() {
         if (apiService == null) {
+            RequestInterceptor requestInterceptor = new RequestInterceptor() {
+                @Override
+                public void intercept(RequestFacade request) {
+                    // 必须设置 User-Agent，否则返回 403
+                    // see https://developer.github.com/v3/#user-agent-required
+                    request.addHeader("User-Agent", "Retrofit-Sample-App");
+                }
+            };
+
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint(ENDPOINT)
                     .setLogLevel(RestAdapter.LogLevel.FULL)
+                    .setRequestInterceptor(requestInterceptor)
                     .build();
 
             apiService = restAdapter.create(GitHubApi.class);
