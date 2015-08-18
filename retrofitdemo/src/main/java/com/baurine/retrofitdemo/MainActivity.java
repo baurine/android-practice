@@ -1,37 +1,47 @@
 package com.baurine.retrofitdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.baurine.retrofitdemo.api.GitHubApi;
+import com.baurine.retrofitdemo.api.GitHubClient;
+import com.baurine.retrofitdemo.model.GitHubUser;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    private GitHubApi githubApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        githubApi = GitHubClient.getApiService();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        final TextView tvName = (TextView) findViewById(R.id.tv_name);
+        Button btnGetName = (Button) findViewById(R.id.btn_getuser);
+        btnGetName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                githubApi.getUser("baurine", new Callback<GitHubUser>() {
+                    @Override
+                    public void success(GitHubUser gitHubUser, Response response) {
+                        tvName.setText(gitHubUser.getName());
+                    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+                    @Override
+                    public void failure(RetrofitError error) {
+                        tvName.setText(error.getMessage());
+                    }
+                });
+            }
+        });
     }
 }
