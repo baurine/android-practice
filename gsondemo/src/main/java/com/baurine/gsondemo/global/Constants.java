@@ -21,4 +21,16 @@ public class Constants {
             "\"name\": \"bar\"" +
             "}" +
             "}";
+
+    public static final String TEST_FOO_JSON_ARRAY = "[{" +
+            "\"id\": 100," +
+            "\"body\": \"It is my post 1\"," +
+            "\"number\": 0.13," +
+            "\"created_at\": \"2015-08-19 12:14:34\"" +
+            "},{" +
+            "\"id\": 101," +
+            "\"body\": \"It is my post 2\"," +
+            "\"number\": 0.14," +
+            "\"created_at\": \"2015-08-19 14:58:34\"" +
+            "}]";
 }
