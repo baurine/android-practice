@@ -15,6 +15,11 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * sample resource:
+ * http://themakeinfo.com/2015/04/android-retrofit-images-tutorial/
+ */
+
 public class MainActivity extends ListActivity {
 
     @Override

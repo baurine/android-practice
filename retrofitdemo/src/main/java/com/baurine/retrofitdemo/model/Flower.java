@@ -2,6 +2,11 @@ package com.baurine.retrofitdemo.model;
 
 import android.graphics.Bitmap;
 
+/**
+ * create by:
+ * http://www.jsonschema2pojo.org
+ */
+
 public class Flower {
 
     private int productId;
