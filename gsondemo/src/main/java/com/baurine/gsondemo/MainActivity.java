@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.baurine.gsondemo.global.Constants;
 import com.baurine.gsondemo.model.FooModel;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         textView1.setText(foo1.createAt);
 
         // usage2
-
+        GsonBuilder builder = new GsonBuilder();
+        builder.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        Gson gson = builder.create();
+        FooModel.Foo2 foo2 = gson.fromJson(Constants.TEST_FOO_JSON_1, FooModel.Foo2.class);
+        textView2.setText(foo2.createAt.toString());
     }
 }
