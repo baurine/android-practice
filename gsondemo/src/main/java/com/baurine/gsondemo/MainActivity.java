@@ -13,6 +13,11 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * source reference:
+ * http://www.stormzhang.com/android/2014/05/22/android-gson/
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
