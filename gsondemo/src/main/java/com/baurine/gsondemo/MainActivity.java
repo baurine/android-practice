@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textView2 = (TextView) findViewById(R.id.tv_content_2);
         TextView textView3 = (TextView) findViewById(R.id.tv_content_3);
         TextView textView4 = (TextView) findViewById(R.id.tv_content_4);
+        TextView textView5 = (TextView) findViewById(R.id.tv_content_5);
 
         // usage1
         FooModel.Foo1 foo1 = new Gson().fromJson(Constants.TEST_FOO_JSON_1, FooModel.Foo1.class);
@@ -50,5 +51,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<FooModel.Foo1> foo1s = new Gson().fromJson(Constants.TEST_FOO_JSON_ARRAY,
                 listType);
         textView4.setText(foo1s.get(foo1s.size() - 1).body);
+
+        // usage5: java object to json string
+        foo3.data.name = "Foo3";
+        GsonBuilder builder1 = new GsonBuilder();
+        builder1.setPrettyPrinting();
+        Gson gson1 = builder1.create();
+        String json = gson1.toJson(foo3);
+        textView5.setText(json);
     }
 }
