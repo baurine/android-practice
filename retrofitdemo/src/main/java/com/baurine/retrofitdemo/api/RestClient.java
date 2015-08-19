@@ -4,33 +4,29 @@ import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 /**
- * Created by baurine on 8/13/15.
+ * Created by baurine on 8/19/15.
  */
-public class GitHubClient {
-    private static final String ENDPOINT = "https://api.github.com";
+public class RestClient {
+    private final static String EDNPOINT = "http://services.hanselandpetal.com";
 
-    private static GitHubApi apiService;
+    private static RestApi apiService;
 
-    public static GitHubApi getApiService() {
+    public static RestApi getApiService() {
         if (apiService == null) {
             RequestInterceptor requestInterceptor = new RequestInterceptor() {
                 @Override
                 public void intercept(RequestFacade request) {
-                    // 必须设置 User-Agent，否则返回 403
-                    // see https://developer.github.com/v3/#user-agent-required
                     request.addHeader("User-Agent", "Retrofit-Sample-App");
                 }
             };
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint(ENDPOINT)
-                    .setLogLevel(RestAdapter.LogLevel.FULL)
+                    .setEndpoint(EDNPOINT)
                     .setRequestInterceptor(requestInterceptor)
                     .build();
 
-            apiService = restAdapter.create(GitHubApi.class);
+            apiService = restAdapter.create(RestApi.class);
         }
-
         return apiService;
     }
 }
