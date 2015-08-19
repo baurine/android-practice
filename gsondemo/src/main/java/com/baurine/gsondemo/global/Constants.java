@@ -10,4 +10,15 @@ public class Constants {
             "\"number\": 0.13," +
             "\"created_at\": \"2015-08-19 12:14:34\"" +
             "}";
+
+    public static final String TEST_FOO_JSON_NEST = "{" +
+            "\"id\": 100," +
+            "\"body\": \"It is my post\"," +
+            "\"number\": 0.13," +
+            "\"created_at\": \"2015-08-19 12:14:34\"," +
+            "\"data\": {" +
+            "\"id\": 200," +
+            "\"name\": \"bar\"" +
+            "}" +
+            "}";
 }

@@ -35,5 +35,9 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = builder.create();
         FooModel.Foo2 foo2 = gson.fromJson(Constants.TEST_FOO_JSON_1, FooModel.Foo2.class);
         textView2.setText(foo2.createAt.toString());
+
+        // usage3
+        FooModel.Foo3 foo3 = gson.fromJson(Constants.TEST_FOO_JSON_NEST, FooModel.Foo3.class);
+        textView3.setText(foo3.data.name);
     }
 }
