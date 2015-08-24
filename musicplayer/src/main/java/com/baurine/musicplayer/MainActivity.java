@@ -1,5 +1,6 @@
 package com.baurine.musicplayer;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStart.setOnClickListener(this);
         btnPlayPause.setOnClickListener(this);
         btnStop.setOnClickListener(this);
+
+        findViewById(R.id.btn_jump).setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_stop:
                 stopPlay();
+                break;
+            case R.id.btn_jump:
+                startMusicPlayActivity();
                 break;
             default:
                 break;
@@ -118,5 +124,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mediaPlayer != null && prepared) {
             mediaPlayer.stop();
         }
+    }
+
+    private void startMusicPlayActivity() {
+        Intent intent = new Intent(this, MusicPlayActivity.class);
+        startActivity(intent);
     }
 }
