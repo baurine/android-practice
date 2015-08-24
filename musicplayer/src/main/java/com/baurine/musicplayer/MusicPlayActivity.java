@@ -1,14 +1,23 @@
 package com.baurine.musicplayer;
 
+import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
+import com.baurine.musicplayer.player.MusicService;
+import com.baurine.musicplayer.player.MusicService.MusicBinder;
 import com.baurine.musicplayer.player.Song;
 import com.baurine.musicplayer.player.SongAdapter;
 
@@ -26,11 +35,15 @@ public class MusicPlayActivity extends AppCompatActivity {
     private ArrayList<Song> songList;
     private ListView songListView;
 
+    // music service
+    private MusicService musicService;
+    private Intent playIntent;
+    private boolean musicBound = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_play);
-
 
         songList = new ArrayList<>();
         getSongList();
@@ -40,11 +53,52 @@ public class MusicPlayActivity extends AppCompatActivity {
         setupListView();
     }
 
+    private ServiceConnection musicConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicBinder binder = (MusicBinder) service;
+            musicService = binder.getService();
+            musicService.setList(songList);
+            musicBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicBound = false;
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (playIntent == null) {
+            playIntent = new Intent(this, MusicService.class);
+            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            startService(playIntent);  // ??
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_shuffle:
+                break;
+            case R.id.action_end:
+                stopService(playIntent);
+                musicService = null;
+                System.exit(0);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     private void getSongList() {
         ContentResolver musicResolver = getContentResolver();
@@ -76,5 +130,10 @@ public class MusicPlayActivity extends AppCompatActivity {
     private void setupListView() {
         SongAdapter songAdapter = new SongAdapter(this, songList);
         songListView.setAdapter(songAdapter);
+    }
+
+    public void songPicked(View view) {
+        musicService.setSong(Integer.parseInt(view.getTag().toString()));
+        musicService.playSong();
     }
 }
