@@ -15,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.MediaController;
 
+import com.baurine.musicplayer.player.MusicController;
 import com.baurine.musicplayer.player.MusicService;
 import com.baurine.musicplayer.player.MusicService.MusicBinder;
 import com.baurine.musicplayer.player.Song;
@@ -30,7 +32,8 @@ import java.util.Comparator;
  * http://code.tutsplus.com/tutorials/create-a-music-player-on-android-project-setup--mobile-22764
  */
 
-public class MusicPlayActivity extends AppCompatActivity {
+public class MusicPlayActivity extends AppCompatActivity
+        implements MediaController.MediaPlayerControl {
 
     private ArrayList<Song> songList;
     private ListView songListView;
@@ -39,6 +42,8 @@ public class MusicPlayActivity extends AppCompatActivity {
     private MusicService musicService;
     private Intent playIntent;
     private boolean musicBound = false;
+
+    private MusicController musicController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,18 @@ public class MusicPlayActivity extends AppCompatActivity {
 
         songListView = (ListView) findViewById(R.id.listview_song);
         setupListView();
+
+        setupController();
+
+        // following code works, but musicController state is wrong when pause
+//        View rootView = findViewById(R.id.ll_root);
+//        rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+//                new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        setupController();
+//                    }
+//                });
     }
 
     private ServiceConnection musicConnection = new ServiceConnection() {
@@ -99,7 +116,6 @@ public class MusicPlayActivity extends AppCompatActivity {
     }
 
 
-
     private void getSongList() {
         ContentResolver musicResolver = getContentResolver();
         Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -135,5 +151,100 @@ public class MusicPlayActivity extends AppCompatActivity {
     public void songPicked(View view) {
         musicService.setSong(Integer.parseInt(view.getTag().toString()));
         musicService.playSong();
+        musicController.show();
+    }
+
+    private void setupController() {
+        musicController = new MusicController(this);
+
+        musicController.setPrevNextListeners(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playNext();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playPrev();
+            }
+        });
+
+        musicController.setMediaPlayer(this);
+        musicController.setAnchorView(findViewById(R.id.listview_song));
+        musicController.setEnabled(true);
+    }
+
+    private void playNext() {
+        musicService.playNext();
+        musicController.show(0);
+    }
+
+    private void playPrev() {
+        musicService.playPrev();
+        musicController.show(0);
+    }
+
+    @Override
+    public void start() {
+        musicService.go();
+    }
+
+    @Override
+    public void pause() {
+        musicService.pausePlayer();
+    }
+
+    @Override
+    public int getDuration() {
+        if (musicService != null && musicBound && musicService.isPlaying()) {
+            return musicService.getDur();
+        }
+        return 0;
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        if (musicService != null && musicBound && musicService.isPlaying()) {
+            return musicService.getPos();
+        }
+        return 0;
+    }
+
+    @Override
+    public void seekTo(int pos) {
+        musicService.seek(pos);
+    }
+
+    @Override
+    public boolean isPlaying() {
+        if (musicService != null && musicBound) {
+            return musicService.isPlaying();
+        }
+        return false;
+    }
+
+    @Override
+    public int getBufferPercentage() {
+        return 0;
+    }
+
+    @Override
+    public boolean canPause() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekForward() {
+        return true;
+    }
+
+    @Override
+    public int getAudioSessionId() {
+        return 0;
     }
 }

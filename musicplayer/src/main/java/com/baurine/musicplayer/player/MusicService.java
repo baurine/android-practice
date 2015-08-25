@@ -1,5 +1,7 @@
 package com.baurine.musicplayer.player;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -12,6 +14,9 @@ import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.baurine.musicplayer.MusicPlayActivity;
+import com.baurine.musicplayer.R;
 
 import java.util.List;
 
@@ -28,6 +33,8 @@ public class MusicService extends Service implements
     private int songPos;
 
     private final IBinder musicBinder = new MusicBinder();
+    private String songTitle = "";
+    private static final int NOTIFY_ID = 1;
 
     @Override
     public void onCreate() {
@@ -37,6 +44,12 @@ public class MusicService extends Service implements
         mediaPlayer = new MediaPlayer();
 
         initMusicPlayer();
+    }
+
+    @Override
+    public void onDestroy() {
+//        super.onDestroy();
+        stopForeground(true);
     }
 
     private void initMusicPlayer() {
@@ -74,6 +87,8 @@ public class MusicService extends Service implements
     @Override
     public void onPrepared(MediaPlayer mp) {
         mediaPlayer.start();
+
+        setNotification();
     }
 
     @Override
@@ -90,6 +105,7 @@ public class MusicService extends Service implements
         mediaPlayer.reset();
 
         Song playSong = songs.get(songPos);
+        songTitle = playSong.getTitle();
         long songId = playSong.getId();
         Uri trackUri = ContentUris.withAppendedId(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
@@ -97,14 +113,68 @@ public class MusicService extends Service implements
 
         try {
             mediaPlayer.setDataSource(getApplicationContext(), trackUri);
+            mediaPlayer.prepareAsync();
         } catch (Exception e) {
             Log.e("Music Service", "Error set data source", e);
         }
-
-        mediaPlayer.prepareAsync();
     }
 
     public void setSong(int songIndex) {
         songPos = songIndex;
     }
+
+    public int getPos() {
+        return mediaPlayer.getCurrentPosition();
+    }
+
+    public int getDur() {
+        return mediaPlayer.getDuration();
+    }
+
+    public boolean isPlaying() {
+        return mediaPlayer.isPlaying();
+    }
+
+    public void pausePlayer() {
+        mediaPlayer.pause();
+    }
+
+    public void seek(int pos) {
+        mediaPlayer.seekTo(pos);
+    }
+
+    public void go() {
+        mediaPlayer.start();
+    }
+
+    public void playPrev() {
+        songPos--;
+        if (songPos < 0) songPos = songs.size() - 1;
+        playSong();
+    }
+
+    public void playNext() {
+        songPos++;
+        if (songPos >= songs.size()) songPos = 0;
+        playSong();
+    }
+
+    private void setNotification() {
+        Intent notifyIntent = new Intent(this, MusicPlayActivity.class);
+        notifyIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendIntent = PendingIntent.getActivity(this, 0,
+                notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification.Builder builder = new Notification.Builder(this);
+
+        builder.setContentIntent(pendIntent)
+                .setSmallIcon(R.drawable.play)
+                .setTicker(songTitle)
+                .setOngoing(true)
+                .setContentTitle("Playing")
+                .setContentText(songTitle);
+        Notification notification = builder.build();
+        startForeground(NOTIFY_ID, notification);
+    }
+
 }
