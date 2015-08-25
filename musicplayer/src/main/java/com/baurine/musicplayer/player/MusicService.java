@@ -19,6 +19,7 @@ import com.baurine.musicplayer.MusicPlayActivity;
 import com.baurine.musicplayer.R;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by baurine on 8/24/15.
@@ -33,8 +34,14 @@ public class MusicService extends Service implements
     private int songPos;
 
     private final IBinder musicBinder = new MusicBinder();
+
+    // notification
     private String songTitle = "";
     private static final int NOTIFY_ID = 1;
+
+    // shuffle
+    private boolean shuffle = false;
+    private Random rand;
 
     @Override
     public void onCreate() {
@@ -42,6 +49,8 @@ public class MusicService extends Service implements
 
         songPos = 0;
         mediaPlayer = new MediaPlayer();
+
+        rand = new Random();
 
         initMusicPlayer();
     }
@@ -154,8 +163,16 @@ public class MusicService extends Service implements
     }
 
     public void playNext() {
-        songPos++;
-        if (songPos >= songs.size()) songPos = 0;
+        if (shuffle) {
+            int newSong;
+            do {
+                newSong = rand.nextInt(songs.size());
+            } while (newSong == songPos);
+            songPos = newSong;
+        } else {
+            songPos++;
+            if (songPos >= songs.size()) songPos = 0;
+        }
         playSong();
     }
 
@@ -175,6 +192,10 @@ public class MusicService extends Service implements
                 .setContentText(songTitle);
         Notification notification = builder.build();
         startForeground(NOTIFY_ID, notification);
+    }
+
+    public void setShuffle() {
+        shuffle = !shuffle;
     }
 
 }

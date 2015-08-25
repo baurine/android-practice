@@ -105,6 +105,7 @@ public class MusicPlayActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_shuffle:
+                musicService.setShuffle();
                 break;
             case R.id.action_end:
                 stopService(playIntent);
