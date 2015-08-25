@@ -30,6 +30,8 @@ import java.util.Comparator;
 /**
  * reference:
  * http://code.tutsplus.com/tutorials/create-a-music-player-on-android-project-setup--mobile-22764
+ * http://code.tutsplus.com/tutorials/create-a-music-player-on-android-song-playback--mobile-22778
+ * http://code.tutsplus.com/tutorials/create-a-music-player-on-android-user-controls--mobile-22787
  */
 
 public class MusicPlayActivity extends AppCompatActivity
@@ -142,6 +144,10 @@ public class MusicPlayActivity extends AppCompatActivity
                 return a.getTitle().compareTo(b.getTitle());
             }
         });
+
+        // test
+        // add a net song
+        songList.add(0, new Song(MainActivity.MP3_URL));
     }
 
     private void setupListView() {

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String MP3_URL = "http://192.168.0.215:3000" +
+    public static final String MP3_URL = "http://192.168.0.215:3000" +
             "/uploads/track/file/20/low_quality_4_masazumi_ozawa_attraction.mp3";
 
     private MediaPlayer mediaPlayer;

@@ -119,17 +119,27 @@ public class MusicService extends Service implements
 
         Song playSong = songs.get(songPos);
         songTitle = playSong.getTitle();
-        long songId = playSong.getId();
-        Uri trackUri = ContentUris.withAppendedId(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                songId);
+        if (!playSong.isNetSong()) {
+            long songId = playSong.getId();
+            Uri trackUri = ContentUris.withAppendedId(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    songId);
 
-        try {
-            mediaPlayer.setDataSource(getApplicationContext(), trackUri);
-            mediaPlayer.prepareAsync();
-        } catch (Exception e) {
-            Log.e("Music Service", "Error set data source", e);
+            try {
+                mediaPlayer.setDataSource(getApplicationContext(), trackUri);
+                mediaPlayer.prepareAsync();
+            } catch (Exception e) {
+                Log.e("Music Service", "Error set data source", e);
+            }
+        } else {
+            try {
+                mediaPlayer.setDataSource(playSong.getUrl());
+                mediaPlayer.prepareAsync();
+            } catch (Exception e) {
+                Log.e("Music Service", "Error set data source", e);
+            }
         }
+
     }
 
     public void setSong(int songIndex) {
