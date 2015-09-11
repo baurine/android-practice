@@ -17,6 +17,8 @@ public class MyStickyHeaderScrollView extends FrameLayout
     private View mStickyHeaderViewContent;
     private int mStickyHeaderViewTop;
 
+    private boolean sticky = false;
+
     public MyStickyHeaderScrollView(Context context) {
         super(context);
 
@@ -92,14 +94,26 @@ public class MyStickyHeaderScrollView extends FrameLayout
             return;
         }
 
-        if (y > mStickyHeaderViewTop &&
-                mStickyHeaderViewContent.getParent() == mStickyHeaderViewContainer) {
+        // version 2
+        if (y > mStickyHeaderViewTop && !sticky) {
             mStickyHeaderViewContainer.removeView(mStickyHeaderViewContent);
             addView(mStickyHeaderViewContent);
-        } else if (y < mStickyHeaderViewTop &&
-                mStickyHeaderViewContent.getParent() == MyStickyHeaderScrollView.this) {
+            sticky = true;
+        } else if (y < mStickyHeaderViewTop && sticky) {
             removeView(mStickyHeaderViewContent);
             mStickyHeaderViewContainer.addView(mStickyHeaderViewContent);
+            sticky = false;
         }
+
+//        version 1
+//        if (y > mStickyHeaderViewTop &&
+//                mStickyHeaderViewContent.getParent() == mStickyHeaderViewContainer) {
+//            mStickyHeaderViewContainer.removeView(mStickyHeaderViewContent);
+//            addView(mStickyHeaderViewContent);
+//        } else if (y < mStickyHeaderViewTop &&
+//                mStickyHeaderViewContent.getParent() == MyStickyHeaderScrollView.this) {
+//            removeView(mStickyHeaderViewContent);
+//            mStickyHeaderViewContainer.addView(mStickyHeaderViewContent);
+//        }
     }
 }
