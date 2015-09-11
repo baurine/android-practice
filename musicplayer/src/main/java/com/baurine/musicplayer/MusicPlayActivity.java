@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +71,14 @@ public class MusicPlayActivity extends AppCompatActivity
 //                        setupController();
 //                    }
 //                });
+
+        // yes, it works!
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                musicController.show();
+            }
+        });
     }
 
     private ServiceConnection musicConnection = new ServiceConnection() {

@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.baurine.musicplayer.MusicPlayActivity;
@@ -196,7 +197,7 @@ public class MusicService extends Service implements
         PendingIntent pendIntent = PendingIntent.getActivity(this, 0,
                 notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification.Builder builder = new Notification.Builder(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
         builder.setContentIntent(pendIntent)
                 .setSmallIcon(R.drawable.play)
