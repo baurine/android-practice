@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,20 +14,60 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.baurine.customeview.CustomTitleView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        app:titleText="3712"
-        app:titleBgColour="#000000"
-        app:titleTextColour="#ffffff"
-        app:titleTextSize="40sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"/>
+
+        <com.baurine.customeview.CustomTitleView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            app:titleBgColour="#000000"
+            app:titleText="3712"
+            app:titleTextColour="#ffffff"
+            app:titleTextSize="40sp"/>
+
+        <com.baurine.customeview.CustomImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            app:image="@mipmap/ic_launcher"
+            app:imageScaleType="center"
+            app:titleText="hello android ! "
+            app:titleTextColour="#ff0000"
+            app:titleTextSize="30sp"/>
+
+        <com.baurine.customeview.CustomImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            app:image="@mipmap/ic_launcher"
+            app:imageScaleType="center"
+            app:titleText="helloworldwelcome"
+            app:titleTextColour="#00ff00"
+            app:titleTextSize="20sp"/>
+
+        <com.baurine.customeview.CustomImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            app:image="@mipmap/meizhi_"
+            app:imageScaleType="center"
+            app:titleText="妹子~"
+            app:titleTextColour="#ff0000"
+            app:titleTextSize="12sp"/>
+
+    </LinearLayout>
 
 
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>
