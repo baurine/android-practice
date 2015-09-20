@@ -67,6 +67,15 @@
             app:titleTextColour="#ff0000"
             app:titleTextSize="12sp"/>
 
+        <com.baurine.customeview.CustomProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:circleWidth="10dp"
+            app:firstColor="#ff0000"
+            app:secondColor="#00ffff"
+            app:speed="10"
+            />
+
     </LinearLayout>
 
 
