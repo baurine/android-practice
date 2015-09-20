@@ -10,10 +10,15 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 public class CustomTitleView extends View {
 
     private String mTitleText;
     private int mTitleTextColor;
+    private int mTitleBgColor;
     private int mTitleTextSize;
 
     private Rect mBound;
@@ -54,6 +59,9 @@ public class CustomTitleView extends View {
                 case R.styleable.CustomTitleView_titleTextColour:
                     mTitleTextColor = a.getColor(attr, Color.BLACK);
                     break;
+                case R.styleable.CustomTitleView_titleBgColour:
+                    mTitleBgColor = a.getColor(attr, Color.WHITE);
+                    break;
             }
         }
 
@@ -67,16 +75,64 @@ public class CustomTitleView extends View {
 
         mBound = new Rect();
         mPaint.getTextBounds(mTitleText, 0, mTitleText.length(), mBound);
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTitleText = randomText();
+                requestLayout(); // requestLayout() 请求 onMeasure(), 并且自动请求 onDraw()
+//                postInvalidate(); // postInvalidate() 只会请求 onDraw(), 不会请求 onMeasure()
+            }
+        });
+    }
+
+    private String randomText() {
+        Random random = new Random();
+        int len = random.nextInt(6) + 1;
+        Set<Integer> set = new HashSet<>();
+        while (set.size() < len) {
+            set.add(random.nextInt(10));
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for (Integer i : set) {
+            sb.append("" + i);
+        }
+
+        return sb.toString();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int width;
+        int height;
+
+        if (widthMode == MeasureSpec.EXACTLY) {
+            width = widthSize;
+        } else {
+            mPaint.setTextSize(mTitleTextSize);
+            mPaint.getTextBounds(mTitleText, 0, mTitleText.length(), mBound);
+            width = mBound.width() + getPaddingLeft() + getPaddingRight();
+        }
+
+        if (heightMode == MeasureSpec.EXACTLY) {
+            height = heightSize;
+        } else {
+            mPaint.setTextSize(mTitleTextSize);
+            mPaint.getTextBounds(mTitleText, 0, mTitleText.length(), mBound);
+            height = mBound.height() + getPaddingTop() + getPaddingBottom();
+        }
+
+        setMeasuredDimension(width, height);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mPaint.setColor(Color.YELLOW);
+        mPaint.setColor(mTitleBgColor);
         canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), mPaint);
 
         mPaint.setColor(mTitleTextColor);
