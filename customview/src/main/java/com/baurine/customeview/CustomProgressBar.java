@@ -1,5 +1,9 @@
 package com.baurine.customeview;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,6 +13,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 public class CustomProgressBar extends View {
 
@@ -55,24 +60,43 @@ public class CustomProgressBar extends View {
 
     private void init() {
         paint = new Paint();
-        new Thread(new Runnable() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    progress += speed;
+//                    if (progress >= 360) {
+//                        progress = 0;
+//                        next = !next;
+//                    }
+//                    postInvalidate();
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }).start();
+        ObjectAnimator progressAnimator =
+                ObjectAnimator.ofInt(this, "progress", 0, 360)
+                        .setDuration(360 / speed * 1000);
+        progressAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void run() {
-                while (true) {
-                    progress += speed;
-                    if (progress >= 360) {
-                        progress = 0;
-                        next = !next;
-                    }
-                    postInvalidate();
-                    try {
-                        Thread.sleep(100);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+            public void onAnimationRepeat(Animator animation) {
+                super.onAnimationRepeat(animation);
+                next = !next;
             }
-        }).start();
+        });
+
+        progressAnimator.start();
+    }
+
+    public void setProgress(int value) {
+        progress = value;
+        invalidate();
     }
 
     @Override
