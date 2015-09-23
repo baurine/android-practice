@@ -76,6 +76,62 @@
             android:gravity="center"
             android:text="hahahah">
         </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:text="hahahah">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:text="hahahah">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:text="hahahah">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:text="hahahah">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:text="hahahah">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:text="hahahah">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:text="hahahah">
+        </TextView>
     </LinearLayout>
 
 </ScrollView>
